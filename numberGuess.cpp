@@ -10,31 +10,41 @@
 
 int main() {
     // This function comparing the guessed number and answer
-    std::string numberGuess;
+    std::string guessString;
     int answerRandom;
-    int numberInteger;
+    int guessInteger;
 
     // input
-    std::cout << "Enter the number you guess between 0 - 9: ";
-    std::cin >> numberGuess;
-
     // process & output
     std::random_device rseed;
     std::mt19937 rgen(rseed());
     std::uniform_int_distribution<int> idist(0, 9);
     answerRandom = idist(rgen);
-
-    std::cout << "" << std::endl;
-    try {
-        numberInteger = std::stoi(numberGuess);
-        if (numberInteger == answerRandom) {
-            std::cout << "Your guess is right!";
-        } else {
-            std::cout << "Your guess is wrong! The answer is "
-            << answerRandom << ".";
+    do {
+        std::cout << "" << std::endl;
+        std::cout << "Enter the number you guess between 0 - 9: ";
+        std::cin >> guessString;
+        std::cout << "" << std::endl;
+        try {
+            guessInteger = std::stoi(guessString);
+            if (guessInteger < 0 || guessInteger > 9) {
+                std::cout << "Please put in a number between 0 and 9!";
+                std::cout << "\nPlease try again." << std::endl;
+            } else if (guessInteger < answerRandom) {
+                std::cout << "The answer is bigger than your number!";
+                std::cout << "\nPlease try again." << std::endl;
+            } else if (guessInteger > answerRandom) {
+                std::cout << "The answer is smaller than your number!";
+                std::cout << "\nPlease try again." << std::endl;
+            } else {
+                std::cout << "Your guess is right! The answer is "
+                << answerRandom << "!";
+                std::cout << "\n\nDone.";
+                break;
+            }
+        } catch (std::invalid_argument) {
+        std::cout << "Invalid number!";
+        std::cout << "\nPlease try again." << std::endl;
         }
-    } catch (std::invalid_argument) {
-        std::cout << numberGuess << " is not an integer!";
-    }
-    std::cout << "\n\nDone." << std::endl;
+    } while (true);
 }
