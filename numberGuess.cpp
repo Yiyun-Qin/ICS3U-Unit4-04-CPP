@@ -43,8 +43,8 @@ int main() {
                 break;
             }
         } catch (std::invalid_argument) {
-        std::cout << "Invalid number!";
-        std::cout << "\nPlease try again." << std::endl;
+            std::cout << "Invalid number!";
+            std::cout << "\nPlease try again." << std::endl;
         }
     } while (true);
 }
